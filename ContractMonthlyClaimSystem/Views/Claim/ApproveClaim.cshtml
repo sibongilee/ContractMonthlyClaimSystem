@@ -1,5 +1,42 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{
+    ViewData["Title"] = "Approve Claim";
 }
+
+<style>
+    body {
+        background-color: black;
+        color: white;
+        font-family: Arial, sans-serif;
+    }
+
+    .container {
+        background-color: dimgray;
+        padding: 30px;
+        border-radius: 10px;
+        width: 500px;
+        margin: 100px auto;
+        text-align: center;
+    }
+
+    button {
+        background-color: forestgreen;
+        color: white;
+        padding: 10px 20px;
+        margin: 10px;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+    }
+
+        button:hover {
+            background-color: mediumseagreen;
+        }
+</style>
+
+<div class="container">
+    <h2>Approve Claim</h2>
+    <p>Approve verified claims here.</p>
+    <form asp-controller="Claim" asp-action="ApproveClaim" method="post">
+        <button type="submit">Approve</button>
+    </form>
+</div>

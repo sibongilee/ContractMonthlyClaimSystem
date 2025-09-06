@@ -9,6 +9,7 @@ namespace ContractMonthlyClaimSystem.Models
         public int Id { get; set; }
         public string LecturerName { get; set; } = string.Empty;
         public string Activity { get; set; } = string.Empty;
+        public string Topic { get; set; } = string.Empty;
         public System.DateTime Date { get; set; }
         public string Description { get; set; } = string.Empty;
     }//end of class Lecturer

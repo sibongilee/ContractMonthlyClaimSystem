@@ -2,3 +2,63 @@
 @{
 	ViewData["Title"] = "Dashboard";
 }
+<style>
+    body {
+        background-color: black;
+        color: white;
+        font-family: Arial, sans-serif;
+    }
+
+    .container {
+        background-color: dimgray;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0px 4px 6px black;
+        width: 600px;
+        margin: 100px auto;
+        text-align: center;
+    }
+
+    button {
+        background-color: forestgreen;
+        color: white;
+        padding: 12px 25px;
+        margin: 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+        button:hover {
+            background-color: mediumseagreen;
+        }
+</style>
+
+<div class="container">
+    <h2>Welcome to the Dashboard</h2>
+    <p>Select an action:</p>
+
+    <form asp-controller="Claim" asp-action="SubmitClaim" method="get">
+        <button type="submit">Submit Claim</button>
+    </form>
+
+    <form asp-controller="Claim" asp-action="UploadDocuments" method="get">
+        <button type="submit">Upload Supporting Documents</button>
+    </form>
+
+    <form asp-controller="Claim" asp-action="TrackStatus" method="get">
+        <button type="submit">Track Status</button>
+    </form>
+
+    <form asp-controller="Claim" asp-action="VerifyClaims" method="get">
+        <button type="submit">Verify Claim</button>
+    </form>
+
+    <form asp-controller="Claim" asp-action="ApproveClaim" method="get">
+        <button type="submit">Approve Claim</button>
+    </form>
+
+    <form asp-controller="Claim" asp-action="ViewClaims" method="get">
+        <button type="submit">View Claims</button>
+    </form>
+</div>
