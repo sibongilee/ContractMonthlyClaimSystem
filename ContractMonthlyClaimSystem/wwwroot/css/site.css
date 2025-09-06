@@ -20,3 +20,101 @@ html {
 body {
   margin-bottom: 60px;
 }
+/* General Page Style */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to right, #1e3c72, #2a5298);
+    color: white;
+}
+
+/* Navbar */
+.navbar {
+    background-color: #333;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+    margin: 0 15px;
+    font-weight: bold;
+}
+
+.navbar a:hover {
+    color: #4CAF50;
+}
+
+/* Content Container */
+.container {
+    padding: 20px;
+}
+
+/* Form container */
+.form-container {
+    background-color: rgba(30, 30, 30, 0.9);
+    padding: 30px;
+    border-radius: 12px;
+    width: 400px;
+    margin: 80px auto;
+    text-align: center;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.6);
+}
+
+/* Form headings */
+.form-container h2 {
+    margin-bottom: 10px;
+}
+
+.form-container p {
+    margin-bottom: 20px;
+    font-size: 14px;
+    color: #ccc;
+}
+
+/* Form group */
+.form-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: white;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    border: none;
+    outline: none;
+    font-size: 14px;
+}
+
+/* Buttons */
+.btn {
+    width: 100%;
+    padding: 10px;
+    margin-top: 15px;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn:hover {
+    background-color: #45a049;
+}
