@@ -1,0 +1,74 @@
+﻿@model List<ContractMonthlyClaimSystem.Models.Claim>
+@{
+    ViewData["Title"] = "Verify Claim";
+}
+
+<style>
+    body {
+        background-color: black;
+        color: white;
+        font-family: Arial, sans-serif;
+    }
+
+    .container {
+        background-color: dimgray;
+        padding: 30px;
+        border-radius: 10px;
+        width: 500px;
+        margin: 100px auto;
+        text-align: center;
+    }
+
+    button {
+        background-color: forestgreen;
+        color: white;
+        padding: 10px 20px;
+        margin: 10px;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+    }
+
+        button:hover {
+            background-color: mediumseagreen;
+        }
+</style>
+<div class="container mt-5 d-flex justify-content-center">
+    <div class="card p-4 shadow" style="width:500px;">
+        <h2 class="text-center mb-4">Verify Claims</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Claim ID</th>
+                    <th>Claim Type</th>
+                    <th>Lecturer Name</th>
+                    <th>Description</th>
+                    <th>Status</th>
+                    <th>Date Submitted</th>
+                    <th>Documents</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var claim in Model)
+                {
+                    <tr>
+                        <td>@claim.claimId</td>
+                        <td>@claim.claimType</td>
+                        <td>@claim.LecturerName</td>
+                        <td>@claim.claimDescription</td>
+                        <td>@claim.Status</td>
+                        <td>@claim.claimDate.ToShortDateString()</td>
+
+
+                    </tr>
+                }
+        </table>
+    </div>
+</div>
+<div class="container">
+    <h2>Verify Claim</h2>
+    <p>Click below to verify submitted claims.</p>
+    <form asp-controller="Claim" asp-action="VerifyClaim" method="post">
+        <button type="submit">Verify</button>
+    </form>
+</div>
