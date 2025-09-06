@@ -1,0 +1,62 @@
+﻿@model IEnumerable<ContractMonthlyClaimSystem.Models.Lecturer>
+
+@{
+    ViewData["Title"] = "Lecturer List";
+}
+
+<style>
+    body {
+        background-color: black;
+        color: white;
+        font-family: Arial, sans-serif;
+    }
+
+    .container {
+        background-color: dimgray;
+        padding: 30px;
+        border-radius: 10px;
+        width: 600px;
+        margin: 100px auto;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th, td {
+        padding: 10px;
+        border-bottom: 1px solid white;
+        text-align: left;
+    }
+
+    th {
+        background-color: forestgreen;
+        color: white;
+    }
+
+    tr:hover {
+        background-color: gray;
+    }
+</style>
+
+<div class="container">
+    <h2>Lecturers</h2>
+    <table>
+        <tr>
+            <th>Lecturer Name</th>
+            <th>Topic</th>
+            <th>Date</th>
+            <th>Description</th>
+        </tr>
+        @foreach (var lecturer in Model)
+        {
+            <tr>
+                <td>@lecturer.LecturerName</td>
+                <td>@lecturer.Topic</td>
+                <td>@lecturer.Date.ToShortDateString()</td>
+                <td>@lecturer.Description</td>
+            </tr>
+        }
+    </table>
+</div>

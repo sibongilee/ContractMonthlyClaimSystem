@@ -1,0 +1,67 @@
+﻿@model IEnumerable<ContractMonthlyClaimSystem.Models.Lecturer>
+
+@{
+    ViewData["Title"] = "Lecturers";
+}
+<style>
+    body {
+        background-color: black;
+        color: white;
+        font-family: Arial, sans-serif;
+    }
+
+    .container {
+        background-color: dimgray;
+        padding: 30px;
+        border-radius: 10px;
+        width: 500px;
+        margin: 100px auto;
+        text-align: center;
+    }
+
+    label {
+        display: block;
+        margin: 10px 0 5px;
+        text-align: left;
+    }
+
+    input, textarea {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border-radius: 5px;
+        border: none;
+    }
+
+    button {
+        background-color: forestgreen;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+    }
+
+        button:hover {
+            background-color: mediumseagreen;
+        }
+</style>
+
+<div class="container">
+    <h2>Add Lecturer</h2>
+    <form asp-controller="Lecturer" asp-action="Create" method="post">
+        <label>Lecturer Name</label>
+        <input type="text" name="LecturerName" />
+
+        <label>Topic</label>
+        <input type="text" name="Topic" />
+
+        <label>Date</label>
+        <input type="date" name="Date" />
+
+        <label>Description</label>
+        <textarea name="Description"></textarea>
+
+        <button type="submit">Save</button>
+    </form>
+</div>

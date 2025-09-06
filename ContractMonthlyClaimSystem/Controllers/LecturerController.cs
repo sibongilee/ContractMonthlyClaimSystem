@@ -26,5 +26,10 @@ namespace ContractMonthlyClaimSystem.Controllers
             TempData.Keep("UserRole");
             return RedirectToAction("Index");
         }
+        [HttpPost]
+        public IActionResult LecturerList()
+        {
+            return View(lecturers);
+        }
     }
 }

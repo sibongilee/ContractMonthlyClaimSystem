@@ -1,45 +1,39 @@
-﻿@model IEnumerable<ContractMonthlyClaimSystem.Models.Lecturer>
-
-@{
-	ViewData["Title"] = "Lecturers";
+﻿@{
+	ViewData["Title"] = "Lecturers Home";
 }
+<style>
+	body {
+		background-color: black;
+		color: white;
+		font-family: Arial, sans-serif;
+	}
 
-<div class="container mt-5">
-	<div class="card shadow-lg p-4 rounded-4">
-		<h2 class="text-center text-primary mb-4">Lecturer List</h2>
+	.container {
+		background-color: dimgray;
+		padding: 30px;
+		border-radius: 10px;
+		width: 500px;
+		margin: 100px auto;
+		text-align: center;
+	}
 
-		<div class="text-end mb-3">
-			<a class="btn btn-success rounded-pill px-4" asp-action="Create">+ Add Lecturer</a>
-		</div>
+	a {
+		display: inline-block;
+		margin: 10px;
+		padding: 12px 20px;
+		background-color: forestgreen;
+		color: white;
+		border-radius: 5px;
+		text-decoration: none;
+	}
 
-		<table class="table table-striped table-hover text-center">
-			<thead class="table-dark">
-				<tr>
-					<th>Lecturer ID</th>
-					<th>Name</th>
-					<th>Topic</th>
-					<th>Date</th>
-					<th>Description</th>
-					<th>Activiy</th>
-				</tr>
-			</thead>
-			<tbody>
-				@foreach (var lecturer in Model)
-				{
-					<tr>
-						<td>@lecturer.Id</td>
-						<td>@lecturer.LecturerName</td>
-						<td>@lecturer.Topic</td>
-						<td>@lecturer.Activity</td>
-						<td>@lecturer.Date.ToShortDateString()</td>
-						<td>@lecturer.Description</td>
-						<td>
-							<a class="btn btn-primary btn-sm rounded-pill px-3" asp-action="Edit" asp-route-id="@lecturer.Id">Edit</a>
-							<a class="btn btn-danger btn-sm rounded-pill px-3" asp-action="Delete" asp-route-id="@lecturer.Id">Delete</a>
-						</td>
-					</tr>
-				}
-			</tbody>
-		</table>
-	</div>
+		a:hover {
+			background-color: mediumspringgreen;
+		}
+</style>
+<div class="container">
+	<h2>Welcome to lecturer panel</h2>
+	<p>Please choose an option</p>
+	<a asp-controller="Lecturer" asp-action="AddLecturer">Add Lecturer</a>
+	<a asp-controller="Lecturer" asp-action="LecturerList">Lecturer List</a>
 </div>
