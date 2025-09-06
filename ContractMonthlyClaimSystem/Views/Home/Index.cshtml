@@ -1,8 +1,38 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+<style>
+    body{
+        background-color:black;
+        color: white;
+        font-family: Arial, sans-serif;
+    }
+    .container{
+        background-color:dimgray;
+        padding:30px;
+        border-radius:10px; 
+        width:500px; margin:100px auto;
+        text-align: center;
+    }
+    a{
+        display:inline-block;
+        margin:10px; padding:12px 20px;
+        background-color:forestgreen;
+        color:white;
+        border-radius:5px;
+        text-decoration:none;
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    }
+    a:hover{
+        background-color:mediumspringgreen;
+
+    }
+   
+</style>
+<div class="container">
+    <h2>Welcome</h2>
+    <p>Please choose an option</p>
+    <a asp-controller="Account" asp-action="Registration">Register</a>
+    <a asp-controller="Account" asp-action="Login">Login</a>
 </div>
+
