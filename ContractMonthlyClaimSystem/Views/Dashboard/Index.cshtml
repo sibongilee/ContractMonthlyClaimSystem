@@ -1,64 +1,16 @@
-﻿@model ContractMonthlyClaimSystem.Controllers.ClaimController;
-@{
+﻿@{
 	ViewData["Title"] = "Dashboard";
 }
-<style>
-    body {
-        background-color: black;
-        color: white;
-        font-family: Arial, sans-serif;
-    }
-
-    .container {
-        background-color: dimgray;
-        padding: 30px;
-        border-radius: 10px;
-        box-shadow: 0px 4px 6px black;
-        width: 600px;
-        margin: 100px auto;
-        text-align: center;
-    }
-
-    button {
-        background-color: forestgreen;
-        color: white;
-        padding: 12px 25px;
-        margin: 10px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-    }
-
-        button:hover {
-            background-color: mediumseagreen;
-        }
-</style>
-
-<div class="container">
-    <h2>Welcome to the Dashboard</h2>
-    <p>Select an action:</p>
-
-    <form asp-controller="Claim" asp-action="SubmitClaim" method="get">
-        <button type="submit">Submit Claim</button>
-    </form>
-
-    <form asp-controller="Claim" asp-action="UploadDocuments" method="get">
-        <button type="submit">Upload Supporting Documents</button>
-    </form>
-
-    <form asp-controller="Claim" asp-action="TrackStatus" method="get">
-        <button type="submit">Track Status</button>
-    </form>
-
-    <form asp-controller="Claim" asp-action="VerifyClaims" method="get">
-        <button type="submit">Verify Claim</button>
-    </form>
-
-    <form asp-controller="Claim" asp-action="ApproveClaim" method="get">
-        <button type="submit">Approve Claim</button>
-    </form>
-
-    <form asp-controller="Claim" asp-action="ViewClaims" method="get">
-        <button type="submit">View Claims</button>
-    </form>
+<div class="container text-center">
+	<h2>Welcome to the Dashboard</h2>
+	<p>Select an action:</p>
+	<div class="d-grid gap-2 col-6 mx-auto mt-4">
+		<a asp-controller="Claim" asp-action="Submit" class="btn btn-primary">Submit Claim</a>
+		<a asp-controller="Claim" asp-action="UploadDocuments" class="btn btn-secondary">Upload Documents</a>
+		<a asp-controller="Claim" asp-action="TrackStatus" class="btn btn-info">Track Status</a>
+		<a asp-controller="Claim" asp-action="VerifyClaim" class="btn btn-warning">Verify Claims</a>
+		<a asp-controller="Claim" asp-action="ApproveClaim" class="btn btn-success">Approve Claims</a>
+		<a asp-controller="Claim" asp-action="View" class="btn btn-dark">View Claims</a>
+	</div>
 </div>
+

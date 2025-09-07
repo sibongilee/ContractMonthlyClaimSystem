@@ -1,45 +1,14 @@
 ﻿@{
-    ViewData["Title"] = "Upload Documents";
+	ViewData["Title"] = "Upload Documents";
 }
 
-<style>
-    body {
-        background-color: black;
-        color: white;
-        font-family: Arial, sans-serif;
-    }
-
-    .container {
-        background-color: dimgray;
-        padding: 30px;
-        border-radius: 10px;
-        width: 500px;
-        margin: 100px auto;
-        text-align: center;
-    }
-
-    input {
-        margin: 10px;
-    }
-
-    button {
-        background-color: forestgreen;
-        color: white;
-        padding: 10px 20px;
-        border-radius: 5px;
-        border: none;
-        cursor: pointer;
-    }
-
-        button:hover {
-            background-color: mediumseagreen;
-        }
-</style>
-
 <div class="container">
-    <h2>Upload Documents</h2>
-    <form asp-controller="Claim" asp-action="UploadDocuments" method="post" enctype="multipart/form-data">
-        <input type="file" name="document" />
-        <button type="submit">Upload</button>
-    </form>
+	<h2 class="text-center">Upload Documents</h2>
+	<form asp-controller="Claim" asp-action="UploadDocuments" method="post" enctype="multipart/form-data">
+		<div class="form-group mb-3">
+			<label>Seclect File</label>
+			<input type="file" name="document" class="form-control" />
+		</div>
+		<button type="submit" class="btn btn-secondary w-100">Upload</button>
+	</form>
 </div>

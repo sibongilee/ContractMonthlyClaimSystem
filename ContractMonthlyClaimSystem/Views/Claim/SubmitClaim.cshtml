@@ -1,63 +1,21 @@
 ﻿@{
 	ViewData["Title"] = "Submit Claim";
+
 }
 
-<style>
-	body {
-		background-color: black;
-		color: white;
-		font-family: Arial, sans-serif;
-	}
-
-	.container {
-		background-color: dimgray;
-		padding: 30px;
-		border-radius: 10px;
-		width: 500px;
-		margin: 100px auto;
-		text-align: center;
-	}
-
-	label {
-		display: block;
-		margin: 10px 0 5px;
-		text-align: left;
-	}
-
-	input, textarea {
-		width: 100%;
-		padding: 10px;
-		margin-bottom: 15px;
-		border-radius: 5px;
-		border: none;
-	}
-
-	button {
-		background-color: forestgreen;
-		color: white;
-		padding: 10px 20px;
-		border-radius: 5px;
-		border: none;
-		cursor: pointer;
-	}
-
-		button:hover {
-			background-color: mediumseagreen;
-		}
-</style>
 
 <div class="container">
 	<h2>Submit a Claim</h2>
 	<form asp-controller="Claim" asp-action="SubmitClaim" method="post">
-		<div class="mb-3">
+		<div class="form-group mb-3">
 			<label class="form-label">Claim Title</label>
 			<input name="Title" class="form-control" placeholder="Enter claim title" required />
 		</div>
-		<div class="mb-3">
+		<div class="form-group mb-3">
 			<label class="form-label">Description</label>
 			<textarea name="Description" class="form-control" rows="4" placeholder="Describe your claim" required></textarea>
 		</div>
-		<div class="mb-3">
+		<div class="form-group mb-3">
 			<label class="form-label">Date</label>
 			<input type="date" class="form-control" required />
 		</div>
