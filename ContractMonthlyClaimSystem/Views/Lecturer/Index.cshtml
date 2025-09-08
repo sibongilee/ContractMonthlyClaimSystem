@@ -1,10 +1,11 @@
-﻿
-@{
+﻿@{
 	ViewData["Title"] = "Lecturers Home";
 }
-<div class="container">
+<div class="container mt-4">
 	<h2>Welcome to lecturer panel</h2>
-	<p>Please choose an option</p>
-	<a asp-controller="Lecturer" asp-action="AddLecturer">Add Lecturer</a>
-	<a asp-controller="Lecturer" asp-action="LecturerList">Lecturer List</a>
+	<p>Manage lecturer information here.</p>
+	<div class="mt-3">
+		<a class="btn btn-primary" asp-controller="Lecturer" asp-action="Create">Add Lecturer</a>
+		<a class="btn btn-secondary" asp-controller="Lecturer" asp-action="List">Lecturer List</a>
+	</div>
 </div>

@@ -30,21 +30,22 @@ namespace ContractMonthlyClaimSystem.Controllers
         var user = users.Find(u => u.Email == email && u.Password == password);
             if (user != null) 
             {
-            TempData["UserName"]= user.Name;
-            TempData["UserRole"]= user.Role;
+            TempData["User_Name"]= user.Name;
+            TempData["User_Role"]= user.Role;
             return RedirectToAction("Index", "Dashboard");
             }
             // if user is null, still allow redirect to dashboard
-            TempData["UserName"]= "Guest";
-            TempData["UserRole"]= "Lecturer";
+            TempData["User_Name"]= user?.Name ?? "Guest";
+            TempData["User_Role"]= user?.Role ?? "Guest";
             return RedirectToAction("Index", "Dashboard");
 
         }
         [HttpPost]
         public IActionResult Logout()
         {
-            TempData.Clear();
-            return RedirectToAction("Login");
+        TempData.Remove("User_Name");
+        TempData.Remove("User_Role");
+        return RedirectToAction("Login");
         }
     }
 }

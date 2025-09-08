@@ -8,43 +8,52 @@
 	<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 	<link rel="stylesheet" href="~/ContractMonthlyClaimSystem.styles.css" asp-append-version="true" />
 </head>
-<body>
-    <div class="navbar">
-        <div>
-            <a asp-controller="Home" asp-action="Index">Home</a>
-            <a asp-controller="Home" asp-action="Privacy">Privacy</a>
-            <a asp-controller="Lecturer" asp-action="Index">Lecturer Panel</a>
-            <a asp-controller="Dashboard" asp-action="Index">Dashboard</a>
-        </div>
+<body class="bg-dark text-light">
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+		<div class="container">
+			<a class="navbar-brand fw-bold" asp-controller="Home" asp-action="Index">Claim-SM</a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav me-auto">
+					<li class="nav-item">
+						<a class="nav-link" asp-controller="Home" asp-action="Index">Home</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" asp-controller="Home" asp-action="Privacy">Privacy</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" asp-controller="Lecturer" asp-action="Index">Lecturer Panel</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" asp-controller="Home" asp-action="About">About</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" asp-controller="Dashboard" asp-action="Index">Dashboard</a>
+					</li>
+				</ul>
+				<ul class="navbar-nav ms-auto">
+					@if (TempData["User_Name"] != null)
+					{
+						<li class="nav-item">
+							<span class="navbar-text text-white me-3">
+								@TempData["User_Name"] 
+								(@TempData["User_Role"])
+							</span>
+						</li>
+						<li class="nav-item">
+							<a class="btn btn-outline-light" asp-controller="Account" asp-action="Logout">Logout</a>
+						</li>
+					}
+				</ul>
+			</div>
+		</div>
+	</nav>
 
-        <ul class="navbar-nav ms-auto">
-            @if (TempData["Username"] != null)
-            {
-                <li class="nav-item">
-                    <span class="navbar-text text-white me-3">
-                        @TempData["Username"] (@TempData["UserRole"])
-                    </span>
-                </li>
-                <li class="nav-item">
-                    <a class="btn btn-outline-light" asp-controller="Account" asp-action="Logout">Logout</a>
-                </li>
-            }
-            else
-            {
-                <li class="nav-item">
-                    <a class="btn btn-outline-light" asp-controller="Account" asp-action="Login">Login</a>
-                </li>
-                <li class="nav-item">
-                    <a class="btn btn-outline-light" asp-controller="Account" asp-action="Registration">Register</a>
-                </li>
-            }
-        </ul>
-    </div>
-
-		
 	<div class="container my-4">
 		@RenderBody()
 	</div>
-	
+
 </body>
 </html>
