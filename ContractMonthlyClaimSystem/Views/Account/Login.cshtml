@@ -15,9 +15,10 @@
 		</div>
 		<button type="submit" class="btn btn-custom w-100">Sign in</button>
 	</form>
-	<div class="text-center mt-3">
-		<a asp-controller="Account" asp-action="Register" class="text-light">Dont have an account? Register Here</a>
-	</div>
+	<p class="text-center mt-3">
+		Dont have an account? Register Here
+		<a href="@Url.Action("Registration", "Account")">Register</a>
+	</p>
 </div>
 
 

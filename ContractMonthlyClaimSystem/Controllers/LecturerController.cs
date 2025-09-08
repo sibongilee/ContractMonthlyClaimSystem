@@ -12,12 +12,12 @@ namespace ContractMonthlyClaimSystem.Controllers
             return View(lecturers);
         }
         [HttpGet]
-        public IActionResult AddLecturer()
+        public IActionResult Create()
         {
             return View();
         }
         [HttpPost]
-        public IActionResult AddLecturer(Lecturer lecturer)
+        public IActionResult Create(Lecturer lecturer)
         {
             lecturer.Id = lecturers.Count + 1;
             lecturers.Add(lecturer);
