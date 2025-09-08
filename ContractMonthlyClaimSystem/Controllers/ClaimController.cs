@@ -45,7 +45,8 @@ namespace ContractMonthlyClaimSystem.Controllers
             }
             return NotFound();
         }
-        [HttpGet]
+        
+        [HttpPost]
         public IActionResult TrackStatus()
         { 
         var lecturerName = TempData["User_Name"]?.ToString();
