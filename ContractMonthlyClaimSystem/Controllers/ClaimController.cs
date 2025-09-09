@@ -9,14 +9,14 @@ namespace ContractMonthlyClaimSystem.Controllers
         public static List<User> users = new List<User>();
         public static List<Lecturer> lecturers = new List<Lecturer>();
         [HttpGet]
-        public IActionResult Submit()
+        public IActionResult SubmitClaim()
         {
             ViewBag.Users = users;
             ViewBag.Lecturers = lecturers;
             return View();
         }
         [HttpPost]
-        public IActionResult Submit(Claim claim)
+        public IActionResult SubmitClaim(Claim claim)
         {
             claim.claimId = claims.Count + 1;
             claims.Add(claim);
