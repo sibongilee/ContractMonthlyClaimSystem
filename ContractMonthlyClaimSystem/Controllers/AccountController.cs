@@ -13,11 +13,11 @@ namespace ContractMonthlyClaimSystem.Controllers
         }
         [HttpPost]
         public IActionResult Registration(User user)
-        { 
-        user.Id = users.Count + 1;
-        users.Add(user);
-        TempData["Success"]= "Registration Successful. Please login";
-        return RedirectToAction("Login");
+        {
+            user.Id = users.Count + 1;
+            users.Add(user);
+            TempData["Success"] = "Registration Successful. Please login";
+            return RedirectToAction("Login");
         }
         [HttpGet]
         public IActionResult Login()
@@ -25,27 +25,29 @@ namespace ContractMonthlyClaimSystem.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Login(string email, string password) 
+        public IActionResult Login(string email, string password)
         {
-        var user = users.Find(u => u.Email == email && u.Password == password);
-            if (user != null) 
+            var user = users.Find(u => u.Email == email && u.Password == password);
+            if (user != null)
             {
-            TempData["User_Name"]= user.Name;
-            TempData["User_Role"]= user.Role;
-            return RedirectToAction("Index", "Dashboard");
+                TempData["User_Name"] = user.Name;
+                TempData["User_Role"] = user.Role;
+                return RedirectToAction("Index", "Dashboard");
             }
-            // if user is null, still allow redirect to dashboard
-            TempData["User_Name"]= user?.Name ?? "Guest";
-            TempData["User_Role"]= user?.Role ?? "Guest";
-            return RedirectToAction("Index", "Dashboard");
-
+            TempData["Error"] = "Invalid email or password";
+            return RedirectToAction("Login");
         }
-        [HttpPost]
+        [HttpGet]
         public IActionResult Logout()
         {
-        TempData.Remove("User_Name");
-        TempData.Remove("User_Role");
-        return RedirectToAction("Login");
+            // Clear TempData and redirect to Login
+            TempData.Remove("User_Name");
+            TempData.Remove("User_Role");
+            TempData.Remove("Error");
+            return RedirectToAction("Login");
         }
     }
 }
+
+
+

@@ -8,5 +8,6 @@ namespace ContractMonthlyClaimSystem.Controllers
         {
             return View();
         }
+
     }
 }
