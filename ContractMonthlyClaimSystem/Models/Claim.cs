@@ -1,18 +1,24 @@
-﻿namespace ContractMonthlyClaimSystem.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace ContractMonthlyClaimSystem.Models
 {
     public class Claim
     {
         public int claimId { get; set; }
         public string claimType { get; set; } = string.Empty;
         public string claimDescription { get; set; } = string.Empty;
-        public System.DateTime claimDate { get; set; }
-        public string Status { get; set; } = string.Empty;//Pending, Approved, Rejected
-        public string Documents { get; set; } = string.Empty;//file path of the document
-        // link to User
-        public int UserId { get; set; }
-        public string SubmittedBy { get; set; } = string.Empty;//name of the user who submitted the claim
-        // link to Lecturer
-        public int LecturerId { get; set; }
+        [Required]
         public string LecturerName { get; set; } = string.Empty;//name of the lecturer who made the claim
+        [Required]
+        public double HoursWorked { get; set; }
+        [Required]
+        public double HourlyRate { get; set; }
+        public string Notes { get; set; }//notes from the verifier
+
+        public string Status { get; set; } = "Pending";//status of the claim: Pending, Approved, Rejected
+        public string DocumentPath { get; set; } 
+        public System.DateTime claimDate { get; set; }
+        public double TotalAmount => HoursWorked * HourlyRate;
+       
     }//end of class Claim
 }//end of namespace
