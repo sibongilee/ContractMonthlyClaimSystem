@@ -153,3 +153,116 @@ ul {
         font-size: 1.1rem;
         color: #333;
 }
+/* ============================= */
+/* Login / Register Page Styling */
+/* ============================= */
+
+body.login-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #0b0f18; /* dark background */
+    font-family: Arial, sans-serif;
+    margin: 0;
+    color: #f1f1f1;
+}
+
+.login-card {
+    background: #1a1f2b;
+    width: 420px; /* roughly same as screenshot */
+    max-width: 90%;
+    padding: 35px 30px;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+    text-align: left;
+}
+
+    .login-card h1 {
+        font-size: 1.8rem;
+        font-weight: bold;
+        margin-bottom: 10px;
+        color: #ffffff;
+    }
+
+    .login-card p {
+        font-size: 0.95rem;
+        color: #bbb;
+        margin-bottom: 25px;
+    }
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+    .login-form label {
+        font-size: 0.9rem;
+        color: #ccc;
+    }
+
+    .login-form input,
+    .login-form select {
+        padding: 12px;
+        border-radius: 8px;
+        border: 1px solid #333;
+        background: #10141e;
+        color: #eee;
+        font-size: 0.95rem;
+        outline: none;
+        transition: border 0.3s;
+    }
+
+        .login-form input:focus,
+        .login-form select:focus {
+            border-color: #1abc9c;
+        }
+
+.btn-login {
+    background: #1abc9c;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    width: 100%;
+}
+
+    .btn-login:hover {
+        background: #16a085;
+    }
+
+.extra-links {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    font-size: 0.85rem;
+}
+
+    .extra-links a {
+        color: #1abc9c;
+        text-decoration: none;
+    }
+
+        .extra-links a:hover {
+            text-decoration: underline;
+        }
+
+.register-note {
+    text-align: center;
+    margin-top: 20px;
+    color: #ccc;
+    font-size: 0.9rem;
+}
+
+    .register-note a {
+        color: #1abc9c;
+        text-decoration: none;
+    }
+
+        .register-note a:hover {
+            text-decoration: underline;
+        }

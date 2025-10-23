@@ -4,10 +4,15 @@ namespace ContractMonthlyClaimSystem.Data
 {
     public class DatabaseConnection
     {
-        private readonly string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=ContractMonthlyClaimDB;Integrated Security=True;";
+        // connection string to connect to the SQL Server database
+        private readonly string connectionString =
+            "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=ContractMonthlyClaimDB;Integrated Security=True;";
+        // method to get a sql connection instance
         public SqlConnection GetConnection()
         {
-            return new SqlConnection(connectionString);
+            SqlConnection connection = new SqlConnection(connectionString);
+            return connection;
         }
     }
 }
+  

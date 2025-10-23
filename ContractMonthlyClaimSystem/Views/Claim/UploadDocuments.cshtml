@@ -1,14 +1,25 @@
 ﻿@{
 	ViewData["Title"] = "Upload Documents";
 }
+<div class="container mt-5 p-4 bg-light rounded shadow">
+    <h2 class="text-center text-primary mb-4">Upload Supporting Documents</h2>
 
-<div class="container">
-	<h2 class="text-center">Upload Documents</h2>
-	<form asp-controller="Claim" asp-action="UploadDocuments" method="post" enctype="multipart/form-data">
-		<div class="form-group mb-3">
-			<label>Seclect File</label>
-			<input type="file" name="document" class="form-control" />
-		</div>
-		<button type="submit" class="btn btn-secondary w-100">Upload</button>
-	</form>
+    @if (ViewBag.Message != null)
+    {
+        <div class="alert alert-info">@ViewBag.Message</div>
+    }
+
+    <form asp-action="UploadDocuments" method="post" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label class="form-label fw-bold">Claim ID</label>
+            <input type="number" class="form-control" name="claimId" placeholder="Enter Claim ID" required />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label fw-bold">Select File</label>
+            <input type="file" class="form-control" name="document" accept=".pdf,.docx,.xlsx" required />
+        </div>
+
+        <button type="submit" class="btn btn-success w-100 py-2">Upload Document</button>
+    </form>
 </div>

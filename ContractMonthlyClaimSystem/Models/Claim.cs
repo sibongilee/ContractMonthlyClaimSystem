@@ -15,10 +15,11 @@ namespace ContractMonthlyClaimSystem.Models
         public double HourlyRate { get; set; }
         public string Notes { get; set; }//notes from the verifier
 
-        public string Status { get; set; } = "Pending";//status of the claim: Pending, Approved, Rejected
+        public string Status { get; set; }//status of the claim: Pending, Approved, Rejected
         public string DocumentPath { get; set; } 
         public System.DateTime claimDate { get; set; }
         public double TotalAmount => HoursWorked * HourlyRate;
-       
+        public int LecturerId { get; set; } //foreign key referencing Lecturer table
+
     }//end of class Claim
 }//end of namespace

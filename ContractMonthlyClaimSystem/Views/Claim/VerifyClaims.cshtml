@@ -11,10 +11,15 @@
                     <th>Claim ID</th>
                     <th>Claim Type</th>
                     <th>Lecturer Name</th>
+                    <th>Hours</th>
+                    <th>Rate</th>
+                    <th>Total</th>
+                    <th>Notes</th>
                     <th>Description</th>
                     <th>Status</th>
                     <th>Date Submitted</th>
                     <th>Documents</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -25,18 +30,22 @@
                         <td>@claim.claimType</td>
                         <td>@claim.LecturerName</td>
                         <td>@claim.claimDescription</td>
+                        <td>@claim.HoursWorked</td>
+                        <td>@claim.HourlyRate</td>
+                        <td>@claim.TotalAmount</td>
+                        <td>@claim.Notes</td>
                         <td>@claim.Status</td>
                         <td>@claim.claimDate.ToShortDateString()</td>
-
+                        <td>
+                            <!-- Add document display logic here if needed -->
+                        </td>
+                        <td>
+                            <a asp-action="ApproveClaim" asp-route-id="@claim.claimId" class="btn btn-success btn-sm">Approve</a>
+							<a asp-action="RejectClaim" asp-route-id="@claim.claimId" class="btn btn-danger btn-sm">Reject</a>
+                        </td>
                     </tr>
                 }
+            </tbody>
         </table>
     </div>
-</div>
-<div class="container text-center">
-    <h2>Verify Claim</h2>
-    <p>Click below to verify submitted claims.</p>
-    <form asp-controller="Claim" asp-action="VerifyClaims" method="post">
-        <button type="submit">Verify</button>
-    </form>
 </div>

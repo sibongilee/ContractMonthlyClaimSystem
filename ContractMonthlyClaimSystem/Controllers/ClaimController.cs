@@ -1,16 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using ContractMonthlyClaimSystem.Models;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.IO;
+using ContractMonthlyClaimSystem.Data;
+using ContractMonthlyClaimSystem.Models;
+using Microsoft.AspNetCore.Mvc;
 namespace ContractMonthlyClaimSystem.Controllers
 {
     public class ClaimController : Controller
     {
-        //sql connection
-        string connectionString = "Data Source=(localdb)\\" +
-            "MSSQLLocalDB;Initial Catalog=ContractMonthlyClaimDB;Integrated Security=True;";
-
+        private readonly DatabaseConnection db = new DatabaseConnection();
         [HttpGet]
         public IActionResult SubmitClaim()
         {
@@ -19,151 +17,126 @@ namespace ContractMonthlyClaimSystem.Controllers
         [HttpPost]
         public IActionResult SubmitClaim(Claim claim)
         {
-            if (ModelState.IsValid)
+            try
             {
-                using (SqlConnection connection = new SqlConnection(connectionString))
+                using (SqlConnection con = db.GetConnection())
                 {
-                    connection.Open();
-                    SqlCommand command = new SqlCommand(
-                        "INSERT INTO Claims (claimType, claimDescription, LecturerName, HoursWorked, HourlyRate, Status, Documents, UserId, claimDate) " +
-                        "VALUES (@claimType, @claimDescription, @LecturerName, @HoursWorked,@Notes, @HourlyRate, @Status, @DocumentPath, @UserId, @claimDate,@Notes,'Pending')", connection);
-                    command.Parameters.AddWithValue(@"claimType", claim.claimType);
-                    command.Parameters.AddWithValue(@"claimDescription", claim.claimDescription);
-                    command.Parameters.AddWithValue(@"LecturerName", claim.LecturerName);
-                    command.Parameters.AddWithValue(@"HoursWorked", claim.HoursWorked);
-                    command.Parameters.AddWithValue(@"HourlyRate", claim.HourlyRate);
-                    command.Parameters.AddWithValue("@Notes", claim.Notes ?? (object)DBNull.Value);
-                    command.ExecuteNonQuery();
+                    string query = "INSERT INTO Claims (claimType, claimDescription, LecturerName, HoursWorked, HourlyRate, Notes, Status, DocumentPath, claimDate) " +
+                                   "VALUES (@Type, @Description, @LecturerName, @HoursWorked, @HourlyRate, @Notes, @Status, @DocumentPath, @ClaimDate)";
+                    SqlCommand cmd = new SqlCommand(query, con);
+                    cmd.Parameters.AddWithValue("@LecturerId", claim.LecturerId);
+                    cmd.Parameters.AddWithValue("@HoursWorked", claim.HoursWorked);
+                    cmd.Parameters.AddWithValue("@HourlyRate", claim.HourlyRate);
+                    cmd.Parameters.AddWithValue("@Notes", claim.Notes ?? (object)DBNull.Value);
+                    con.Open();
+                    cmd.ExecuteNonQuery();
                 }
                 TempData["Message"] = "Claim submitted successfully.";
                 return RedirectToAction("ViewClaims");
             }
-            return View(claim);
-        }
-        [HttpGet]
-        public IActionResult UploadDocuments()
-        {
-            return View();
-        }
-        [HttpPost]
-        public IActionResult UploadDocuments(int claimId, IFormFile file)
-        {
-            if (file != null && file.Length > 0)
+            catch (Exception ex)
             {
-                var uploads = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads");
-                if (!Directory.Exists(uploads))
-                    Directory.CreateDirectory(uploads);
-
-                var filePath = Path.Combine(uploads, file.FileName);
-                using (var stream = new FileStream(filePath, FileMode.Create))
-                {
-                    file.CopyTo(stream);
-                }
-
-                using (SqlConnection con = new SqlConnection(connectionString))
-                {
-                    con.Open();
-                    SqlCommand cmd = new SqlCommand(
-                        "UPDATE Claims SET DocumentPath=@Path WHERE ClaimId=@Id",
-                        con
-                    );
-                    cmd.Parameters.AddWithValue("@Path", file.FileName);
-                    cmd.Parameters.AddWithValue("@Id", claimId);
-                    cmd.ExecuteNonQuery();
-                }
-
-                TempData["Message"] = "File uploaded successfully!";
-            }
-            else
-            {
-                TempData["Error"] = "Please select a valid file.";
+                ViewBag.Error = "Error: " + ex.Message;
+                return View();
             }
 
-            return RedirectToAction("ViewClaims");
         }
-
-        // ---------------------- VIEW CLAIMS ----------------------
         public IActionResult ViewClaims()
         {
             List<Claim> claims = new List<Claim>();
-
-            using (SqlConnection con = new SqlConnection(connectionString))
+            using (SqlConnection con = db.GetConnection())
             {
+                string query = "SELECT * FROM Claims";
+                SqlCommand cmd = new SqlCommand(query, con);
                 con.Open();
-                SqlCommand cmd = new SqlCommand("SELECT * FROM Claims", con);
                 SqlDataReader reader = cmd.ExecuteReader();
 
                 while (reader.Read())
                 {
                     claims.Add(new Claim
                     {
-                        claimId = (int)reader["ClaimId"],
-                        LecturerName = reader["LecturerName"].ToString(),
-                        HoursWorked = (double)reader["HoursWorked"],
-                        HourlyRate = (double)reader["HourlyRate"],
-                        Notes = reader["Notes"].ToString(),
-                        Status = reader["Status"].ToString(),
-                        DocumentPath = reader["DocumentPath"].ToString()
-                    });
-                }
-            }
-
-            return View(claims);
-        }
-
-        // ---------------------- APPROVE OR REJECT CLAIM ----------------------
-        public IActionResult ApproveClaim(int id)
-        {
-            UpdateClaimStatus(id, "Approved");
-            TempData["Message"] = "Claim approved successfully!";
-            return RedirectToAction("VerifyClaims");
-        }
-
-        public IActionResult RejectClaim(int id)
-        {
-            UpdateClaimStatus(id, "Rejected");
-            TempData["Message"] = "Claim rejected successfully!";
-            return RedirectToAction("VerifyClaims");
-        }
-
-        public IActionResult VerifyClaims()
-        {
-            List<Claim> claims = new List<Claim>();
-
-            using (SqlConnection con = new SqlConnection(connectionString))
-            {
-                con.Open();
-                SqlCommand cmd = new SqlCommand("SELECT * FROM Claims WHERE Status='Pending'", con);
-                SqlDataReader reader = cmd.ExecuteReader();
-
-                while (reader.Read())
-                {
-                    claims.Add(new Claim
-                    {
-                        claimId = (int)reader["ClaimId"],
-                        LecturerName = reader["LecturerName"].ToString(),
-                        HoursWorked = (double)reader["HoursWorked"],
-                        HourlyRate = (double)reader["HourlyRate"],
+                        claimId = Convert.ToInt32(reader["ClaimId"]),
+                        LecturerId = Convert.ToInt32(reader["LecturerId"]),
+                        HoursWorked = Convert.ToDouble(reader["HoursWorked"]),
+                        HourlyRate = Convert.ToDouble(reader["HourlyRate"]),
                         Notes = reader["Notes"].ToString(),
                         Status = reader["Status"].ToString()
                     });
                 }
             }
-
             return View(claims);
         }
 
-        private void UpdateClaimStatus(int id, string status)
+        // ✅ Approve/Reject Claim
+        [HttpPost]
+        public IActionResult ApproveClaim(int claimId, string actionType)
         {
-            using (SqlConnection con = new SqlConnection(connectionString))
+            string status = actionType == "Approve" ? "Approved" : "Rejected";
+
+            using (SqlConnection con = db.GetConnection())
             {
-                con.Open();
-                SqlCommand cmd = new SqlCommand("UPDATE Claims SET Status=@Status WHERE ClaimId=@Id", con);
+                string query = "UPDATE Claims SET Status=@Status WHERE ClaimId=@ClaimId";
+                SqlCommand cmd = new SqlCommand(query, con);
                 cmd.Parameters.AddWithValue("@Status", status);
-                cmd.Parameters.AddWithValue("@Id", id);
+                cmd.Parameters.AddWithValue("@ClaimId", claimId);
+                con.Open();
                 cmd.ExecuteNonQuery();
             }
+
+            TempData["Message"] = $"Claim {status} successfully!";
+            return RedirectToAction("VerifyClaims");
+        }
+
+    
+        public IActionResult VerifyClaims()
+        {
+            return View(ViewClaims());
+        }
+
+        //Upload Documents
+        [HttpGet]
+        public IActionResult UploadDocuments()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult UploadDocuments(IFormFile file, int claimId)
+        {
+            try
+            {
+                if (file != null && file.Length > 0)
+                {
+                    string uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads");
+                    if (!Directory.Exists(uploadsFolder))
+                        Directory.CreateDirectory(uploadsFolder);
+
+                    string filePath = Path.Combine(uploadsFolder, file.FileName);
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        file.CopyTo(stream);
+                    }
+
+                    using (SqlConnection con = db.GetConnection())
+                    {
+                        string query = "UPDATE Claims SET DocumentPath=@DocumentPath WHERE ClaimId=@ClaimId";
+                        SqlCommand cmd = new SqlCommand(query, con);
+                        cmd.Parameters.AddWithValue("@DocumentPath", "/uploads/" + file.FileName);
+                        cmd.Parameters.AddWithValue("@ClaimId", claimId);
+                        con.Open();
+                        cmd.ExecuteNonQuery();
+                    }
+
+                    TempData["Message"] = "File uploaded successfully!";
+                }
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Error = "Error: " + ex.Message;
+            }
+
+            return RedirectToAction("ViewClaims");
+
         }
     }
 }
-
